@@ -1,0 +1,74 @@
+%% Solution inspired by: https://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells/61434
+%% And: https://www.redblobgames.com/grids/hexagons/
+
+\documentclass[a4paper,landscape]{article}
+\input{include/libs.tex}
+\input{include/colors.tex}
+
+\usetikzlibrary{shapes}
+
+
+\pgfmathsetmacro{\boardWidthHexes}{3}
+\pgfmathsetmacro{\temp}{\boardWidthHexes-1}
+    
+\def\flatwidth{3} % exact distance between centers for flat-side contact
+\pgfmathsetmacro{\hexSize}{2 * \flatwidth / sqrt(3)} 
+
+\newcommand{\singlehex}[2]{% x, y
+  \node[regular polygon, regular polygon sides=6, minimum size=\hexSize cm, draw, fill=lightgray!50, inner sep=0pt, rotate=30] at (#1,#2) {};
+}
+
+\begin{document}
+\begin{center}
+\pagestyle{empty}
+
+\begin{tikzpicture}
+
+	\singlehex{-1.5*\flatwidth}{-2.25*\hexSize}
+	\singlehex{-.5*\flatwidth}{-2.25*\hexSize}
+	\singlehex{.5*\flatwidth}{-2.25*\hexSize}
+	\singlehex{1.5*\flatwidth}{-2.25*\hexSize}
+
+	\singlehex{-2*\flatwidth}{-1.5*\hexSize}
+	\singlehex{-\flatwidth}{-1.5*\hexSize}
+	\singlehex{0}{-1.5*\hexSize}
+	\singlehex{\flatwidth}{-1.5*\hexSize}
+	\singlehex{2*\flatwidth}{-1.5*\hexSize}
+
+	\singlehex{-2.5*\flatwidth}{-.75*\hexSize}
+	\singlehex{-1.5*\flatwidth}{-.75*\hexSize}
+	\singlehex{-.5*\flatwidth}{-.75*\hexSize}
+	\singlehex{.5*\flatwidth}{-.75*\hexSize}
+	\singlehex{1.5*\flatwidth}{-.75*\hexSize}
+	\singlehex{2.5*\flatwidth}{-.75*\hexSize}
+
+	\singlehex{-3*\flatwidth}{0}
+	\singlehex{-2*\flatwidth}{0}
+	\singlehex{-\flatwidth}{0}
+	\singlehex{0}{0}
+	\singlehex{\flatwidth}{0}
+	\singlehex{2*\flatwidth}{0}
+	\singlehex{3*\flatwidth}{0}
+	
+	\singlehex{-2.5*\flatwidth}{.75*\hexSize}
+	\singlehex{-1.5*\flatwidth}{.75*\hexSize}
+	\singlehex{-.5*\flatwidth}{.75*\hexSize}
+	\singlehex{.5*\flatwidth}{.75*\hexSize}
+	\singlehex{1.5*\flatwidth}{.75*\hexSize}
+	\singlehex{2.5*\flatwidth}{.75*\hexSize}
+	
+	\singlehex{-2*\flatwidth}{1.5*\hexSize}
+	\singlehex{-\flatwidth}{1.5*\hexSize}
+	\singlehex{0}{1.5*\hexSize}
+	\singlehex{\flatwidth}{1.5*\hexSize}
+	\singlehex{2*\flatwidth}{1.5*\hexSize}
+	
+	\singlehex{-1.5*\flatwidth}{2.25*\hexSize}
+	\singlehex{-.5*\flatwidth}{2.25*\hexSize}
+	\singlehex{.5*\flatwidth}{2.25*\hexSize}
+	\singlehex{1.5*\flatwidth}{2.25*\hexSize}
+	
+\end{tikzpicture}
+	
+\end{center}
+\end{document}

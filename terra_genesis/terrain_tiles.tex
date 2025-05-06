@@ -1,0 +1,58 @@
+%% Solution inspired by: https://tex.stackexchange.com/questions/61429/how-to-draw-a-hexagonal-grid-with-numbers-in-the-cells/61434
+%% And: https://www.redblobgames.com/grids/hexagons/
+
+\documentclass[a4paper,landscape]{article}
+\input{include/libs.tex}
+\input{include/colors.tex}
+
+\usetikzlibrary{shapes}
+
+\newcommand{\joinedhexes}[2]{%
+  \begin{tikzpicture}[baseline=(hex1.center)]
+    % Each hexagon has flat-to-flat width of 4 cm ⇒ edge length a ≈ 2.309 cm
+    % Circumcircle diameter (minimum size) = 4.6188 cm
+	  % \def\hexsize{4.6188cm}
+    \def\flatwidth{3cm} % exact distance between centers for flat-side contact
+	\pgfmathsetmacro{\hexsize}{2 * \flatwidth / sqrt(3)} 
+
+    % Hex 1
+    \node[regular polygon, regular polygon sides=6, minimum size=\hexsize, draw, fill=#1!50, inner sep=0pt, rotate=30] (hex1) at (0,0) {};
+    % Hex 2, shifted horizontally by flat-to-flat width
+    \node[regular polygon, regular polygon sides=6, minimum size=\hexsize, draw, fill=#2!50, inner sep=0pt, rotate=30] (hex2) at (\flatwidth,0) {};
+
+    % Terrain icons
+    \node at (hex1.center) {\textbf{%
+      \ifthenelse{\equal{#1}{forest}}{F}{%
+      \ifthenelse{\equal{#1}{field}}{Fi}{%
+      \ifthenelse{\equal{#1}{mountain}}{M}{%
+      \ifthenelse{\equal{#1}{ocean}}{O}{}}}}%
+    }};
+    \node at (hex2.center) {\textbf{%
+      \ifthenelse{\equal{#2}{forest}}{F}{%
+      \ifthenelse{\equal{#2}{field}}{Fi}{%
+      \ifthenelse{\equal{#2}{mountain}}{M}{%
+      \ifthenelse{\equal{#2}{ocean}}{O}{}}}}%
+    }};
+  \end{tikzpicture}%
+}
+
+\begin{document}
+\begin{center}
+\pagestyle{empty}
+
+\joinedhexes{field}{field}
+\joinedhexes{field}{ocean}
+\joinedhexes{field}{mountain}
+
+\joinedhexes{field}{forest}
+\joinedhexes{ocean}{ocean}
+\joinedhexes{ocean}{mountain}
+
+\joinedhexes{ocean}{forest}
+\joinedhexes{mountain}{mountain}
+\joinedhexes{mountain}{forest}
+
+\joinedhexes{forest}{forest}
+
+\end{center}
+\end{document}
