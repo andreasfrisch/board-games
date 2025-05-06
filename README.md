@@ -1,2 +1,2 @@
-# board-games
-Board Game Designs
+# Board Game Designs
+A collection of board game designs and prototypes.
